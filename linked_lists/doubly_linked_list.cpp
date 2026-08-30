@@ -1,0 +1,213 @@
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* prev;
+    Node* next;
+
+    Node(int x) {
+        data = x;
+        prev = nullptr;
+        next = nullptr;
+    }
+};
+
+class DoublyLinkedList {
+private:
+    Node* head;
+    Node* tail;
+    int sz;
+
+public:
+    DoublyLinkedList() {
+        head = nullptr;
+        tail = nullptr;
+        sz = 0;
+    }
+
+    // Insertar al inicio
+    void push_front(int x) {
+        Node* nuevo = new Node(x);
+
+        nuevo->next = head;
+
+        if (head != nullptr)
+            head->prev = nuevo;
+        else
+            tail = nuevo;
+
+        head = nuevo;
+
+        sz++;
+    }
+
+    // Insertar al final
+    void push_back(int x) {
+        Node* nuevo = new Node(x);
+
+        nuevo->prev = tail;
+
+        if (tail != nullptr)
+            tail->next = nuevo;
+        else
+            head = nuevo;
+
+        tail = nuevo;
+
+        sz++;
+    }
+
+    // Eliminar primero
+    void pop_front() {
+        if (head == nullptr)
+            return;
+
+        Node* temp = head;
+
+        head = head->next;
+
+        if (head != nullptr)
+            head->prev = nullptr;
+        else
+            tail = nullptr;
+
+        delete temp;
+
+        sz--;
+    }
+
+    // Eliminar último
+    void pop_back() {
+        if (tail == nullptr)
+            return;
+
+        Node* temp = tail;
+
+        tail = tail->prev;
+
+        if (tail != nullptr)
+            tail->next = nullptr;
+        else
+            head = nullptr;
+
+        delete temp;
+
+        sz--;
+    }
+
+    // Buscar
+    bool contains(int x) {
+        Node* current = head;
+
+        while (current != nullptr) {
+            if (current->data == x)
+                return true;
+
+            current = current->next;
+        }
+
+        return false;
+    }
+
+    // Eliminar primera aparición de x
+    void remove(int x) {
+        Node* current = head;
+
+        while (current != nullptr) {
+
+            if (current->data == x) {
+
+                // Si es el primero
+                if (current == head) {
+                    pop_front();
+                    return;
+                }
+
+                // Si es el último
+                if (current == tail) {
+                    pop_back();
+                    return;
+                }
+
+                // Está en medio
+                current->prev->next = current->next;
+                current->next->prev = current->prev;
+
+                delete current;
+
+                sz--;
+
+                return;
+            }
+
+            current = current->next;
+        }
+    }
+
+    // Eliminar directamente un nodo
+    // O(1) si ya tenemos el puntero al nodo
+    void remove_node(Node* node) {
+        if (node == nullptr)
+            return;
+
+        if (node == head) {
+            pop_front();
+            return;
+        }
+
+        if (node == tail) {
+            pop_back();
+            return;
+        }
+
+        node->prev->next = node->next;
+        node->next->prev = node->prev;
+
+        delete node;
+
+        sz--;
+    }
+
+    int size() {
+        return sz;
+    }
+
+    bool empty() {
+        return head == nullptr;
+    }
+
+    // Imprimir de izquierda a derecha
+    void print() {
+        Node* current = head;
+
+        while (current != nullptr) {
+            cout << current->data << " ";
+            current = current->next;
+        }
+
+        cout << '\n';
+    }
+
+    // Imprimir de derecha a izquierda
+    void print_reverse() {
+        Node* current = tail;
+
+        while (current != nullptr) {
+            cout << current->data << " ";
+            current = current->prev;
+        }
+
+        cout << '\n';
+    }
+
+    void clear() {
+        while (head != nullptr) {
+            pop_front();
+        }
+    }
+
+    ~DoublyLinkedList() {
+        clear();
+    }
+};
