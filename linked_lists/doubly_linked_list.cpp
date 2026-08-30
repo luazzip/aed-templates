@@ -1,22 +1,24 @@
 #include <iostream>
 using namespace std;
 
+template <typename T>
 struct Node {
-    int data;
+    T data;
     Node* prev;
     Node* next;
 
-    Node(int x) {
+    Node(T x) {
         data = x;
         prev = nullptr;
         next = nullptr;
     }
 };
 
+template <typename T>
 class DoublyLinkedList {
 private:
-    Node* head;
-    Node* tail;
+    Node<T>* head;
+    Node<T>* tail;
     int sz;
 
 public:
@@ -27,8 +29,8 @@ public:
     }
 
     // Insertar al inicio
-    void push_front(int x) {
-        Node* nuevo = new Node(x);
+    void push_front(T x) {
+        Node<T>* nuevo = new Node<T>(x);
 
         nuevo->next = head;
 
@@ -43,8 +45,8 @@ public:
     }
 
     // Insertar al final
-    void push_back(int x) {
-        Node* nuevo = new Node(x);
+    void push_back(T x) {
+        Node<T>* nuevo = new Node<T>(x);
 
         nuevo->prev = tail;
 
@@ -63,7 +65,7 @@ public:
         if (head == nullptr)
             return;
 
-        Node* temp = head;
+        Node<T>* temp = head;
 
         head = head->next;
 
@@ -82,7 +84,7 @@ public:
         if (tail == nullptr)
             return;
 
-        Node* temp = tail;
+        Node<T>* temp = tail;
 
         tail = tail->prev;
 
@@ -97,8 +99,8 @@ public:
     }
 
     // Buscar
-    bool contains(int x) {
-        Node* current = head;
+    bool contains(T x) {
+        Node<T>* current = head;
 
         while (current != nullptr) {
             if (current->data == x)
@@ -111,8 +113,8 @@ public:
     }
 
     // Eliminar primera aparición de x
-    void remove(int x) {
-        Node* current = head;
+    void remove(T x) {
+        Node<T>* current = head;
 
         while (current != nullptr) {
 
@@ -147,7 +149,7 @@ public:
 
     // Eliminar directamente un nodo
     // O(1) si ya tenemos el puntero al nodo
-    void remove_node(Node* node) {
+    void remove_node(Node<T>* node) {
         if (node == nullptr)
             return;
 
@@ -179,7 +181,7 @@ public:
 
     // Imprimir de izquierda a derecha
     void print() {
-        Node* current = head;
+        Node<T>* current = head;
 
         while (current != nullptr) {
             cout << current->data << " ";
@@ -191,7 +193,7 @@ public:
 
     // Imprimir de derecha a izquierda
     void print_reverse() {
-        Node* current = tail;
+        Node<T>* current = tail;
 
         while (current != nullptr) {
             cout << current->data << " ";
