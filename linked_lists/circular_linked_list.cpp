@@ -1,20 +1,22 @@
 #include <iostream>
 using namespace std;
 
+template <typename T>
 struct Node {
-    int data;
+    T data;
     Node* next;
 
-    Node(int x) {
+    Node(T x) {
         data = x;
         next = nullptr;
     }
 };
 
+template <typename T>
 class CircularLinkedList {
 private:
-    Node* head;
-    Node* tail;
+    Node<T>* head;
+    Node<T>* tail;
     int sz;
 
 public:
@@ -25,8 +27,8 @@ public:
     }
 
     // Insertar al inicio
-    void push_front(int x) {
-        Node* nuevo = new Node(x);
+    void push_front(T x) {
+        Node<T>* nuevo = new Node<T>(x);
 
         if (head == nullptr) {
             head = nuevo;
@@ -44,8 +46,8 @@ public:
     }
 
     // Insertar al final
-    void push_back(int x) {
-        Node* nuevo = new Node(x);
+    void push_back(T x) {
+        Node<T>* nuevo = new Node<T>(x);
 
         if (head == nullptr) {
             head = nuevo;
@@ -79,7 +81,7 @@ public:
             return;
         }
 
-        Node* temp = head;
+        Node<T>* temp = head;
 
         head = head->next;
         tail->next = head;
@@ -106,7 +108,7 @@ public:
             return;
         }
 
-        Node* current = head;
+        Node<T>* current = head;
 
         // Buscar nodo anterior a tail
         while (current->next != tail) {
@@ -123,11 +125,11 @@ public:
     }
 
     // Buscar
-    bool contains(int x) {
+    bool contains(T x) {
         if (head == nullptr)
             return false;
 
-        Node* current = head;
+        Node<T>* current = head;
 
         do {
             if (current->data == x)
@@ -141,7 +143,7 @@ public:
     }
 
     // Eliminar primera aparición
-    void remove(int x) {
+    void remove(T x) {
         if (head == nullptr)
             return;
 
@@ -151,7 +153,7 @@ public:
             return;
         }
 
-        Node* current = head;
+        Node<T>* current = head;
 
         while (current->next != head &&
                current->next->data != x) {
@@ -163,7 +165,7 @@ public:
         if (current->next == head)
             return;
 
-        Node* temp = current->next;
+        Node<T>* temp = current->next;
 
         current->next = temp->next;
 
@@ -190,7 +192,7 @@ public:
             return;
         }
 
-        Node* current = head;
+        Node<T>* current = head;
 
         do {
             cout << current->data << " ";
