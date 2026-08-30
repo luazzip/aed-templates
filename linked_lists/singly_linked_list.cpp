@@ -1,20 +1,22 @@
 #include <iostream>
 using namespace std;
 
+template <typename T>
 struct Node {
-    int data;
+    T data;
     Node* next;
 
-    Node(int x) {
+    Node(T x) {
         data = x;
         next = nullptr;
     }
 };
 
+template <typename T>
 class SinglyLinkedList {
 private:
-    Node* head;
-    Node* tail;
+    Node<T>* head;
+    Node<T>* tail;
     int sz;
 
 public:
@@ -25,8 +27,8 @@ public:
     }
 
     // Insertar al inicio
-    void push_front(int x) {
-        Node* nuevo = new Node(x);
+    void push_front(T x) {
+        Node<T>* nuevo = new Node<T>(x);
 
         nuevo->next = head;
         head = nuevo;
@@ -38,8 +40,8 @@ public:
     }
 
     // Insertar al final
-    void push_back(int x) {
-        Node* nuevo = new Node(x);
+    void push_back(T x) {
+        Node<T>* nuevo = new Node<T>(x);
 
         if (head == nullptr) {
             head = nuevo;
@@ -57,7 +59,7 @@ public:
         if (head == nullptr)
             return;
 
-        Node* temp = head;
+        Node<T>* temp = head;
         head = head->next;
 
         delete temp;
@@ -81,7 +83,7 @@ public:
             return;
         }
 
-        Node* current = head;
+        Node<T>* current = head;
 
         // Buscar el nodo anterior a tail
         while (current->next != tail) {
@@ -97,8 +99,8 @@ public:
     }
 
     // Buscar un valor
-    bool contains(int x) {
-        Node* current = head;
+    bool contains(T x) {
+        Node<T>* current = head;
 
         while (current != nullptr) {
             if (current->data == x)
@@ -111,7 +113,7 @@ public:
     }
 
     // Eliminar la primera aparición de x
-    void remove(int x) {
+    void remove(T x) {
         if (head == nullptr)
             return;
 
@@ -121,9 +123,9 @@ public:
             return;
         }
 
-        Node* current = head;
+        Node<T>* current = head;
 
-        // Buscamos el nodo anterior al que queremos eliminar
+        // Buscar el nodo anterior al que queremos eliminar
         while (current->next != nullptr &&
                current->next->data != x) {
             current = current->next;
@@ -133,7 +135,7 @@ public:
         if (current->next == nullptr)
             return;
 
-        Node* temp = current->next;
+        Node<T>* temp = current->next;
 
         current->next = temp->next;
 
@@ -155,7 +157,7 @@ public:
 
     // Imprimir
     void print() {
-        Node* current = head;
+        Node<T>* current = head;
 
         while (current != nullptr) {
             cout << current->data << " ";
