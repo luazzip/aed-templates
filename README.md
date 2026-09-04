@@ -11,3 +11,13 @@
   | **`pop_back`** | $O(n)$ | Requiere recorrer la lista para actualizar `tail`. |
   | **`contains`** | $O(n)$ | Búsqueda lineal en el peor de los casos. |
   | **`remove(x)`** | $O(n)$ | Requiere buscar el elemento antes de eliminarlo. |
+
+## Stack
+| Operación |     Complejidad |
+| --------- | --------------: |
+| `push(x)` | O(1) amortizado |
+| `pop()`   |            O(1) |
+| `top()`   |            O(1) |
+| `empty()` |            O(1) |
+| `size()`  |            O(1) |
+
