@@ -21,3 +21,13 @@
 | `empty()` |            O(1) |
 | `size()`  |            O(1) |
 
+## Queue
+| Operación    |     Complejidad |
+| ------------ | --------------: |
+| `enqueue(x)` | O(1) amortizado |
+| `dequeue()`  |            O(1) |
+| `front()`    |            O(1) |
+| `empty()`    |            O(1) |
+| `size()`     |            O(1) |
+
+
