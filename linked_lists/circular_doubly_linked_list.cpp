@@ -231,6 +231,25 @@ public:
         sz = 0;
     }
 
+    //Eliminar por nodo 
+    Node<T>* eraseNode(Node<T>* node) {
+    Node<T>* nxt = node->next;          // guardamos a dónde seguir
+
+    if (head == tail) {                 // único nodo en la lista
+        head = tail = nullptr;
+        nxt = nullptr;
+    } else {
+        node->prev->next = node->next;  // "saltamos" el nodo
+        node->next->prev = node->prev;
+        if (node == head) head = node->next;
+        if (node == tail) tail = node->prev;
+    }
+
+    delete node;
+    sz--;
+    return nxt;  // el nodo desde el cual seguirá el recorrido
+}
+
     // Imprimir de head hacia adelante
     void print_forward() const {
         if (empty()) {
