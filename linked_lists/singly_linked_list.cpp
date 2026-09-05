@@ -178,6 +178,34 @@ public:
     }
     //list.deleteGivenNode(list.getNodeAt(i));
 
+    // Reagrupa: primero nodos en posicion impar (1,3,5,...), luego pares (2,4,6,...)
+    // En O(n), sin crear nodos nuevos, solo reconectando punteros
+    void oddEvenGroup() {
+        if (head == nullptr || head->next == nullptr) return;
+    
+        Node<T>* oddTail = head;
+        Node<T>* evenHead = head->next;
+        Node<T>* evenTail = evenHead;
+        Node<T>* current = evenTail->next;
+        bool isOdd = true;
+    
+        while (current != nullptr) {
+            if (isOdd) {
+                oddTail->next = current;
+                oddTail = current;
+            } else {
+                evenTail->next = current;
+                evenTail = current;
+            }
+            current = current->next;
+            isOdd = !isOdd;
+        }
+    
+        oddTail->next = evenHead;
+        evenTail->next = nullptr;
+        tail = evenTail;
+    }
+
     // Obtener tamaño
     int size() {
         return sz;
