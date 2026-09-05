@@ -285,4 +285,54 @@ public:
 
         std::cout << '\n';
     }
+
+    //--josephus---
+    T josephus(int k) {
+        if (empty()) throw std::runtime_error("Lista vacia");
+
+        Node<T>* current = head;
+
+        while (sz > 1) {
+            for (int i = 0; i < k - 1; i++) {
+                current = current->next;
+            }
+            current = eraseNode(current);   // reutiliza tu propio metodo
+        }
+
+        return head->data;
+    }
+
+    //---unir----
+    void mergeWith(CircularDoublyLinkedList<T>& other) {
+        if (other.empty()) return;
+
+        if (empty()) {
+            head = other.head;
+            tail = other.tail;
+            sz = other.sz;
+        } else {
+            tail->next = other.head;
+            other.head->prev = tail;
+
+            other.tail->next = head;
+            head->prev = other.tail;
+
+            tail = other.tail;
+            sz += other.sz;
+        }
+        other.head = nullptr;
+        other.tail = nullptr;
+        other.sz = 0;
+    }
+
+    //---rotar----
+    void rotate(int steps) {
+        if (empty()) return;
+        if (steps >= 0) {
+            for (int i = 0; i < steps; i++) head = head->next;
+        } else {
+            for (int i = 0; i < -steps; i++) head = head->prev;
+        }
+        tail = head->prev;   // se mantiene la invariante tail == head->prev
+    }
 };
