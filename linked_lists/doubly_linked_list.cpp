@@ -171,6 +171,18 @@ public:
         sz--;
     }
 
+    // insertar despues de un nodo
+    void insertAfter(Node<T>* node, T x) {
+        if (node == nullptr) return;
+        if (node == tail) { push_back(x); return; }
+        Node<T>* nuevo = new Node<T>(x);
+        nuevo->next = node->next;
+        nuevo->prev = node;
+        node->next->prev = nuevo;
+        node->next = nuevo;
+        sz++;
+    }
+
     int size() {
         return sz;
     }
