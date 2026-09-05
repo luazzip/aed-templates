@@ -146,6 +146,20 @@ public:
         sz--;
     }
 
+    // reverse
+    void reverse() {
+        Node<T>* prev = nullptr;
+        Node<T>* current = head;
+        tail = head; // el head actual sera el nuevo tail
+        while (current != nullptr) {
+            Node<T>* nextNode = current->next;
+            current->next = prev;
+            prev = current;
+            current = nextNode;
+        }
+        head = prev;
+    }
+
     // Obtener tamaño
     int size() {
         return sz;
