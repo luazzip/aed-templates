@@ -160,6 +160,24 @@ public:
         head = prev;
     }
 
+    // eliminar dado
+    void deleteGivenNode(Node<T>* node) {
+        Node<T>* nxt = node->next;
+        node->data = nxt->data;
+        node->next = nxt->next;
+        if (nxt == tail) tail = node;
+        delete nxt;
+        sz--;
+    }
+
+    // Helper para llegar a la posicion i (1-indexada) desde el head, O(i)
+    Node<T>* getNodeAt(int i) {
+        Node<T>* current = head;
+        for (int k = 1; k < i; k++) current = current->next;
+        return current;
+    }
+    //list.deleteGivenNode(list.getNodeAt(i));
+
     // Obtener tamaño
     int size() {
         return sz;
